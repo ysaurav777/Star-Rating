@@ -1,38 +1,35 @@
 import React, { useState } from 'react';
-import {FaStar} from 'react-icons/fa';
+import {FaStar} from "react-icons/fa"
 import './App.scss';
 
-const App = ({numStar=5}) => {
+const App = ({numstat=10}) => {
   const [rate,setrate]=useState(0);
-  const [hov,sethov]=useState(0);
+  const [hover,sethover]=useState(0);
 
-  function onClickStar(onindex) {
-    setrate(onindex);
-    console.log(rate);
+  function clickstar(index) {
+    setrate(index);
+    console.log(index);
   }
-
-  function MouseMove(onindex) {
-    sethov(onindex);
-    console.log(hov);
+  function upstar(index) {
+    sethover(index);
+    console.log(index);
   }
-
-  function MouseDown(onindex) {
-    sethov(rate);
-    console.log(hov);
+  function downstar() {
+    sethover(rate);
   }
 
   return (
-    <div>
+    <div className='star-rating'>
       {
-        [...Array(numStar)].map((_,index)=>{
+        [...Array(numstat)].map((_,index)=>{
           index+=1;
-          return <FaStar
+          return (<FaStar
           key={index}
           className={index<=(hover||rate)?'active':'inactive'}
-          onClick={()=>onClickStar(index)}
-          onMouseMove={()=>MouseMove(index)}
-          onMouseDown={()=>MouseDown(index)}
-          size={30}/>
+          onClick={()=>clickstar(index)}
+          onMouseMove={()=>upstar(index)}
+          onMouseLeave={()=>downstar()}
+          size={40}/>);
         })
       }
     </div>
